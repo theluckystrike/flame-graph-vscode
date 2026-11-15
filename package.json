@@ -1,0 +1,391 @@
+{
+  "name": "zovo-flame-graph",
+  "displayName": "Flame Graph & pprof Viewer",
+  "description": "Flame graph viewer for CPU and memory profiles: .cpuprofile, .heapprofile, Chrome trace JSON, Go pprof (.pb.gz), collapsed stacks, perf script and speedscope files. Search, zoom, time order and left heavy, a function table and click to source. Offline.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#2B1B14",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/flame-graph-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/theluckystrike/flame-graph-vscode/issues"
+  },
+  "homepage": "https://github.com/theluckystrike/flame-graph-vscode#readme",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Visualization",
+    "Debuggers",
+    "Other"
+  ],
+  "keywords": [
+    "flame graph",
+    "pprof",
+    "cpuprofile",
+    "profiler",
+    "performance"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onUri"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "flameGraph.editor",
+        "displayName": "Flame Graph (pprof, collapsed stacks, perf, speedscope)",
+        "selector": [
+          {
+            "filenamePattern": "*.pb.gz"
+          },
+          {
+            "filenamePattern": "*.pprof"
+          },
+          {
+            "filenamePattern": "*.prof"
+          },
+          {
+            "filenamePattern": "*.folded"
+          },
+          {
+            "filenamePattern": "*.collapsed"
+          },
+          {
+            "filenamePattern": "*.perf"
+          },
+          {
+            "filenamePattern": "*.perfscript"
+          },
+          {
+            "filenamePattern": "*.speedscope.json"
+          },
+          {
+            "filenamePattern": "Trace-*.json"
+          }
+        ],
+        "priority": "default"
+      },
+      {
+        "viewType": "flameGraph.other",
+        "displayName": "Flame Graph",
+        "selector": [
+          {
+            "filenamePattern": "*.cpuprofile"
+          },
+          {
+            "filenamePattern": "*.heapprofile"
+          },
+          {
+            "filenamePattern": "*.pb"
+          },
+          {
+            "filenamePattern": "*.json"
+          },
+          {
+            "filenamePattern": "*.txt"
+          },
+          {
+            "filenamePattern": "*.log"
+          },
+          {
+            "filenamePattern": "*.stacks"
+          },
+          {
+            "filenamePattern": "*.out"
+          }
+        ],
+        "priority": "option"
+      }
+    ],
+    "commands": [
+      {
+        "command": "flameGraph.openWithViewer",
+        "title": "Open as Flame Graph",
+        "category": "Flame Graph",
+        "icon": "$(flame)"
+      },
+      {
+        "command": "flameGraph.openSample",
+        "title": "Open the Sample Node.js CPU Profile",
+        "category": "Flame Graph"
+      },
+      {
+        "command": "flameGraph.openGoSample",
+        "title": "Open the Sample Go pprof Profile",
+        "category": "Flame Graph"
+      },
+      {
+        "command": "flameGraph.openWalkthrough",
+        "title": "Get Started",
+        "category": "Flame Graph"
+      },
+      {
+        "command": "flameGraph.moreViewers",
+        "title": "More free tools by Zovo",
+        "category": "Flame Graph"
+      },
+      {
+        "command": "flameGraph.supportDeveloper",
+        "title": "Support the developer",
+        "category": "Flame Graph"
+      },
+      {
+        "command": "flameGraph.diff",
+        "title": "Compare Two Profiles (Pro)",
+        "category": "Flame Graph",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "flameGraph.export",
+        "title": "Export HTML or SVG Report (Pro)",
+        "category": "Flame Graph",
+        "icon": "$(export)"
+      },
+      {
+        "command": "flameGraph.hotspots",
+        "title": "Hotspot Report: CSV and JSON (Pro)",
+        "category": "Flame Graph"
+      },
+      {
+        "command": "flameGraph.zovoPro.diff",
+        "title": "Zovo Pro: Compare two profiles"
+      },
+      {
+        "command": "flameGraph.zovoPro.export",
+        "title": "Zovo Pro: Export HTML or SVG report"
+      },
+      {
+        "command": "flameGraph.zovoPro.hotspots",
+        "title": "Zovo Pro: Hotspot report (CSV, JSON)"
+      },
+      {
+        "command": "flameGraph.getPro",
+        "title": "Get Zovo Pro (USD 19 once, all 22 Zovo extensions)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "flameGraph.payWithPayPal",
+        "title": "Pay for Zovo Pro with PayPal (USD 19, team of 5 USD 59)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "flameGraph.unlockWithSponsors",
+        "title": "I already paid: unlock with GitHub Sponsors",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "flameGraph.enterLicenseKey",
+        "title": "Enter Zovo Pro license key",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "flameGraph.removeLicense",
+        "title": "Remove Zovo Pro from this editor",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "flameGraph.payByCard",
+        "title": "Pay for Zovo Pro by card (USD 19)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "flameGraph.enterKey",
+        "title": "Enter a key",
+        "category": "Zovo Pro"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "flameGraph.openWithViewer",
+          "when": "activeCustomEditorId == 'jsProfileVisualizer.cpuprofile.table' || activeCustomEditorId == 'jsProfileVisualizer.heapprofile.table'",
+          "group": "navigation@9"
+        },
+        {
+          "command": "flameGraph.diff",
+          "when": "(activeCustomEditorId == 'flameGraph.editor' || activeCustomEditorId == 'flameGraph.other') && config.flameGraph.showProTools",
+          "group": "1_flame@1"
+        },
+        {
+          "command": "flameGraph.export",
+          "when": "(activeCustomEditorId == 'flameGraph.editor' || activeCustomEditorId == 'flameGraph.other') && config.flameGraph.showProTools",
+          "group": "1_flame@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "flameGraph.openWithViewer",
+          "when": "!explorerResourceIsFolder && resourceFilename =~ /\\.(cpuprofile|heapprofile|json|pb\\.gz|pprof|prof|pb|folded|collapsed|perf|perfscript|stacks|txt|log|out)$/i",
+          "group": "navigation@9"
+        },
+        {
+          "command": "flameGraph.zovoPro.diff",
+          "when": "!explorerResourceIsFolder && listMultiSelection && resourceFilename =~ /\\.(cpuprofile|heapprofile|json|pb\\.gz|pprof|prof|pb|folded|collapsed|perf|perfscript|stacks|txt)$/i && config.flameGraph.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "flameGraph.zovoPro.diff",
+          "when": "!explorerResourceIsFolder && !listMultiSelection && resourceFilename =~ /\\.(cpuprofile|heapprofile|pb\\.gz|pprof|prof|folded|collapsed|perf|perfscript)$/i && config.flameGraph.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "flameGraph.zovoPro.export",
+          "when": "!explorerResourceIsFolder && !listMultiSelection && resourceFilename =~ /\\.(cpuprofile|heapprofile|pb\\.gz|pprof|prof|folded|collapsed|perf|perfscript)$/i && config.flameGraph.showProTools",
+          "group": "zovoPro@2"
+        },
+        {
+          "command": "flameGraph.zovoPro.hotspots",
+          "when": "!explorerResourceIsFolder && !listMultiSelection && resourceFilename =~ /\\.(cpuprofile|heapprofile|pb\\.gz|pprof|prof|folded|collapsed|perf|perfscript)$/i && config.flameGraph.showProTools",
+          "group": "zovoPro@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "flameGraph.diff",
+          "when": "config.flameGraph.showProTools"
+        },
+        {
+          "command": "flameGraph.export",
+          "when": "config.flameGraph.showProTools"
+        },
+        {
+          "command": "flameGraph.hotspots",
+          "when": "config.flameGraph.showProTools"
+        },
+        {
+          "command": "flameGraph.zovoPro.diff",
+          "when": "false"
+        },
+        {
+          "command": "flameGraph.zovoPro.export",
+          "when": "false"
+        },
+        {
+          "command": "flameGraph.zovoPro.hotspots",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Flame Graph",
+      "properties": {
+        "flameGraph.maxFileSizeMB": {
+          "type": "number",
+          "default": 2048,
+          "minimum": 1,
+          "description": "Larger files open with a message instead of the graph. JSON and text profiles are read in a stream, so big files stay well under 1 GB of memory."
+        },
+        "flameGraph.defaultOrder": {
+          "type": "string",
+          "enum": [
+            "left",
+            "time"
+          ],
+          "enumDescriptions": [
+            "Left heavy: identical call paths merged, heaviest first.",
+            "Time order: the order of the samples, like a timeline."
+          ],
+          "default": "left",
+          "description": "The order a profile opens with. The toolbar switches it, and the last choice is kept."
+        },
+        "flameGraph.direction": {
+          "type": "string",
+          "enum": [
+            "flame",
+            "icicle"
+          ],
+          "enumDescriptions": [
+            "Root at the bottom.",
+            "Root at the top."
+          ],
+          "default": "flame",
+          "description": "Draw the root at the bottom (flame graph) or at the top (icicle chart)."
+        },
+        "flameGraph.hotspotCount": {
+          "type": "number",
+          "default": 50,
+          "minimum": 5,
+          "maximum": 1000,
+          "description": "How many functions the hotspot report lists (Pro)."
+        },
+        "flameGraph.showProTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Zovo Pro tools (compare, export, hotspot report) in the Command Palette, the Explorer menu and the viewer toolbar. Everything free stays visible."
+        },
+        "flameGraph.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask once for a Marketplace rating after profiles opened without an error on two occasions at least 30 minutes apart. \"Later\" asks one more time after 7 days, \"No thanks\" never asks again. Nothing is sent anywhere."
+        },
+        "flameGraph.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Rate, More free tools and Zovo Pro links at the bottom of the viewer. Nothing is sent anywhere."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "flameGraph.start",
+        "title": "Get started with the Flame Graph Viewer",
+        "description": "Open CPU and memory profiles as a flame graph in VS Code.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open a profile",
+            "description": "Click a .pb.gz, .pprof, .folded or perf script file and it opens as a flame graph. For .cpuprofile, .heapprofile and other .json files, right-click the file and choose Open as Flame Graph.\n[Open the sample Node.js CPU profile](command:flameGraph.openSample)",
+            "media": {
+              "image": "images/screenshot.png",
+              "altText": "A Node.js CPU profile open as a flame graph in VS Code, with the function table below it."
+            },
+            "completionEvents": [
+              "onCommand:flameGraph.openSample"
+            ]
+          },
+          {
+            "id": "read",
+            "title": "Find the slow code",
+            "description": "Search a function, click a bar to zoom in, switch between left heavy and time order, and Ctrl or Cmd + click a bar to open its source line.\n[Open the sample Go pprof profile](command:flameGraph.openGoSample)",
+            "media": {
+              "markdown": "walkthrough/read.md"
+            },
+            "completionEvents": [
+              "onCommand:flameGraph.openGoSample"
+            ]
+          },
+          {
+            "id": "zovo-related",
+            "title": "Tools that often go with profiles",
+            "description": "These free Zovo extensions open the other files of a performance hunt. A link opens the extension page, and you choose there whether to install it.\n[Hex Viewer](command:extension.open?%5B%22zovo.zovo-hex-viewer%22%5D)\n[JSON Tree Viewer](command:extension.open?%5B%22zovo.zovo-json-tree-viewer%22%5D)",
+            "media": {
+              "markdown": "walkthrough/related.md"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/test.js",
+    "package": "npx -y @vscode/vsce@3 package --no-dependencies"
+  },
+  "devDependencies": {},
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike/sponsorships?tier_id=679878"
+  }
+}

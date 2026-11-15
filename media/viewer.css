@@ -1,0 +1,61 @@
+/* Flame Graph & pprof Viewer by Zovo: viewer and Pro panel styles. Colors come from the VS Code theme. */
+html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+body { display: flex; flex-direction: column; font-family: var(--vscode-font-family); font-size: var(--vscode-font-size, 13px); color: var(--vscode-foreground); background: var(--vscode-editor-background); }
+#toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 5px 8px; border-bottom: 1px solid var(--vscode-panel-border, rgba(128,128,128,.35)); background: var(--vscode-editorWidget-background, var(--vscode-editor-background)); }
+.chip { padding: 1px 7px; border-radius: 9px; background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); font-size: 11px; white-space: nowrap; }
+.grp { display: inline-flex; }
+.tb { background: var(--vscode-button-secondaryBackground, transparent); color: var(--vscode-button-secondaryForeground, var(--vscode-foreground)); border: 1px solid var(--vscode-button-border, var(--vscode-panel-border, rgba(128,128,128,.4))); padding: 2px 8px; font: inherit; font-size: 12px; cursor: pointer; }
+.grp .tb + .tb { border-left: 0; }
+.tb[aria-pressed="true"] { background: var(--vscode-button-background); color: var(--vscode-button-foreground); }
+.tb:disabled { opacity: .45; cursor: default; }
+.tb:focus-visible, select:focus-visible, input:focus-visible { outline: 1px solid var(--vscode-focusBorder); outline-offset: 1px; }
+.sel { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; }
+.sel[hidden] { display: none; }
+select, input[type=search] { background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border, rgba(128,128,128,.4)); font: inherit; font-size: 12px; padding: 2px 4px; }
+select { max-width: 380px; }
+.search { display: inline-flex; align-items: center; gap: 6px; }
+#search { width: 190px; }
+#matches { font-size: 11px; color: var(--vscode-descriptionForeground); }
+#err { margin: 10px; padding: 10px 12px; border-left: 3px solid var(--vscode-errorForeground, #f14c4c); background: var(--vscode-inputValidation-errorBackground, rgba(241,76,76,.1)); white-space: pre-wrap; }
+#warn { margin: 6px 8px 0; padding: 4px 8px; font-size: 12px; border-left: 3px solid var(--vscode-editorWarning-foreground, #cca700); }
+#err[hidden], #warn[hidden], #busy[hidden], #tablePane[hidden], #tip[hidden] { display: none; }
+#busy { padding: 12px; color: var(--vscode-descriptionForeground); }
+#main { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+#graph { flex: 1 1 60%; min-height: 120px; position: relative; }
+#scroller { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; outline: none; }
+#flame { position: sticky; top: 0; display: block; }
+#details { padding: 4px 8px; font-size: 12px; border-top: 1px solid var(--vscode-panel-border, rgba(128,128,128,.35)); min-height: 18px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+#details a { color: var(--vscode-textLink-foreground); text-decoration: none; }
+#details a:hover { text-decoration: underline; }
+#details .note { color: var(--vscode-descriptionForeground); }
+.hint, .muted { color: var(--vscode-descriptionForeground); }
+#tablePane { flex: 0 0 34%; display: flex; flex-direction: column; min-height: 80px; border-top: 1px solid var(--vscode-panel-border, rgba(128,128,128,.35)); }
+#tableHead { padding: 3px 8px; font-size: 11px; color: var(--vscode-descriptionForeground); }
+#tableWrap, .panelTable { overflow: auto; flex: 1; }
+table { border-collapse: collapse; width: 100%; font-size: 12px; }
+th { position: sticky; top: 0; background: var(--vscode-editorWidget-background, var(--vscode-editor-background)); text-align: left; font-weight: 600; padding: 3px 8px; cursor: pointer; user-select: none; white-space: nowrap; border-bottom: 1px solid var(--vscode-panel-border, rgba(128,128,128,.35)); }
+th.sorted::after { content: " \25BE"; }
+th.sorted[aria-sort="ascending"]::after { content: " \25B4"; }
+td { padding: 2px 8px; white-space: nowrap; border-bottom: 1px solid rgba(128,128,128,.12); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+td.name { font-family: var(--vscode-editor-font-family, monospace); max-width: 520px; overflow: hidden; text-overflow: ellipsis; }
+td.file { color: var(--vscode-descriptionForeground); max-width: 360px; overflow: hidden; text-overflow: ellipsis; }
+#fn tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--vscode-list-hoverBackground); }
+tr.hl { background: var(--vscode-list-activeSelectionBackground) !important; color: var(--vscode-list-activeSelectionForeground); }
+#tip { position: fixed; z-index: 10; pointer-events: none; max-width: 560px; padding: 6px 8px; font-size: 12px; line-height: 1.45; background: var(--vscode-editorHoverWidget-background, #252526); color: var(--vscode-editorHoverWidget-foreground, var(--vscode-foreground)); border: 1px solid var(--vscode-editorHoverWidget-border, #454545); word-break: break-all; }
+#footer { flex: 0 0 auto; }
+/* panels */
+body.panel #app { flex: 1; display: flex; flex-direction: column; min-height: 0; padding: 0 8px 6px; }
+body.panel #toolbar { justify-content: space-between; }
+.summary { padding: 8px 0; font-size: 12.5px; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; }
+.sw.red { background: hsl(2,78%,58%); } .sw.blue { background: hsl(214,78%,58%); }
+.diffgraph { flex: 1 1 55%; min-height: 160px; position: relative; border: 1px solid var(--vscode-panel-border, rgba(128,128,128,.35)); }
+body.panel .panelTable { flex: 1 1 45%; min-height: 120px; margin-top: 6px; }
+tr.up td.chg { color: var(--vscode-errorForeground, #f14c4c); font-weight: 600; }
+tr.down td.chg { color: var(--vscode-charts-blue, #3794ff); font-weight: 600; }
+.tag { font-size: 10px; padding: 0 5px; border-radius: 7px; background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); }
+.meter { display: inline-block; width: 60px; height: 6px; margin-right: 6px; background: rgba(128,128,128,.2); vertical-align: middle; }
+.meter span { display: block; height: 100%; background: hsl(14,80%,56%); }
+code { font-family: var(--vscode-editor-font-family, monospace); }
